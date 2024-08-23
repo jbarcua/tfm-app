@@ -1,0 +1,32 @@
+<div class="row py-5">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+        <div class="card-body p-5 bg-white rounded">
+          <div class="table-responsive">
+            <table id="example" style="width:100%" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Catastral reference</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf= "sensors && sensors.length > 0">
+                  <tr *ngFor='let sensor of sensors' [routerLink]="['/sensor/', sensor.sensorId]">
+                    <td>{{ sensor.sensorId}}</td>
+                    <td>{{ sensor.catastralReference}}</td>
+                    <td>{{ sensor.latitude}}</td>
+                    <td>{{ sensor.longitude}}</td>
+                    <td>{{ sensor.type}}</td>
+                 </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

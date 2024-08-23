@@ -1,0 +1,105 @@
+
+
+<div class="d-flex align-items-top">
+     <div class="container-fluid">
+          
+          <div class="row">
+               <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                         <span>Plots</span>
+                         <a class="d-flex align-items-center text-muted" href="#">
+                              <span data-feather="plus-circle"></span>
+                         </a>
+                    </h6>
+                    <ul class="nav flex-column">
+                         <li class="nav-item">
+                              <a class="nav-link" href="#" (click)="open()">
+                              <span><i-feather name="file-plus"></i-feather></span>
+                              Import plots<span class="sr-only"></span>
+                              </a>
+                         </li>
+                         <li class="nav-item">
+                              <a class="nav-link" href="#">
+                              <span><i-feather name="trash-2"></i-feather></span>
+                              Delete plots
+                              </a>
+                         </li>
+                         <li class="nav-item">
+                              <a class="nav-link" href="/">
+                              <span><i-feather name="map"></i-feather></span>
+                              Map<span class="sr-only"></span>
+                              </a>
+                         </li>
+                         <li class="nav-item">
+                              <a class="nav-link" href="plots">
+                              <span><i-feather name="hexagon"></i-feather></span>
+                              Plot list
+                              </a>
+                         </li>
+               
+                    </ul>
+          
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Sensor</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                         <span data-feather="plus-circle"></span>
+                    </a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                         <li class="nav-item">
+                              <a class="nav-link" href="sensor">
+                                   <span><i-feather name="thermometer"></i-feather></span>
+                              Sensor list
+                              </a>
+                         </li>
+               
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                         <span>Statistics</span>
+                         <a class="d-flex align-items-center text-muted" href="#">
+                              <span data-feather="plus-circle"></span>
+                         </a>
+                         </h6>
+                         <ul class="nav flex-column mb-2">
+                              <li class="nav-item">
+                                   <a class="nav-link" href="statistics">
+                                        <span><i-feather name="bar-chart-2"></i-feather></span>
+                                   Statistics
+                                   </a>
+                              </li>
+                         </ul>
+                    </div>
+               </nav>
+               <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                    <div class="map d-inline-block" id="map"
+                         leaflet
+                         (leafletMapReady)="onMapReady($event)"
+                         [leafletOptions]="mapOptions">
+                         <div class="leaflet-bottom leaflet-right">
+                              <div class="btn-group dropup">
+                                   <button type="button" class="btn btn-danger btn-circle btn-xl dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Dropup
+                                   </button>
+                                   <div class="dropdown-menu">
+                                        <button id="Btn1" (click)="open()" class="btn btn-danger btn-circle btn-xl"><i class="bi bi-plus" style="font-size: 2rem;"></i></button>
+                                   </div>
+                                 </div>
+                              <div class="map-button-div ">
+                                   <button id="Btn1" (click)="open()" class="btn btn-danger btn-circle btn-xl"><i class="bi bi-plus" style="font-size: 2rem;"></i></button>
+                              </div>
+                          </div>
+                    </div>
+                    
+               </main>
+               
+          </div>   
+          
+     
+     </div>
+</div>
+
+
+
+
+    

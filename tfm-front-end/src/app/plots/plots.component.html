@@ -1,0 +1,26 @@
+<div class="row py-5">
+  <div class="col-lg-10 mx-auto">
+    <div class="card rounded shadow border-0">
+      <div class="card-body p-5 bg-white rounded">
+        <div class="table-responsive">
+          <table id="example" style="width:100%" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Catastral reference</th>
+                <th>Number of sensors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf= "plots && plots.length > 0">
+                <tr *ngFor='let plot of plots'>
+                  <td>{{ plot.catastralReference}}</td>
+                  <td>{{ plot.sensorList.length}}</td>
+               </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

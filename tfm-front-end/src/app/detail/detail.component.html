@@ -1,0 +1,16 @@
+
+<div class="d-flex align-items-top">
+    <div class="map d-inline-block" id="map"
+         leaflet
+         (leafletMapReady)="onMapReady($event)"
+         [leafletOptions]="mapOptions">
+    </div>
+    <div class="button-group-div d-inline-block">
+    <div class="button-group btn-group-vertical" >
+         <button type="button" class="btn btn-primary">asdfsdf</button>
+         <button class="btn btn-lg btn-outline-primary" (click)="openCsvModal()">Add new sensor</button>
+         <button class="btn btn-lg btn-outline-primary" (click)="open()">Add new sensor</button>
+       </div>
+    </div>
+    
+    </div>
