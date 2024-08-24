@@ -1,0 +1,70 @@
+name: Compilar, empaquetar con Docker y subir al repositorio los servicios Plots y Sensor.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-plots:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del codigo
+      uses: actions/checkout@v2
+
+    - name: Instalar JDK 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Build Plots con Gradle Wrapper integrado en el proyecto
+      working-directory: ./plots
+      run: ./gradlew bootJar
+
+    - name: Logearse en Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build y push al repositorio
+      working-directory: ./plots
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: jesusbc/plots:kubernetes
+
+  build-sensors:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del codigo
+      uses: actions/checkout@v2
+
+    - name: Instalar JDK 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Build Sensor con Gradle Wrapper integrado en el proyecto
+      working-directory: ./sensor
+      run: ./gradlew bootJar
+
+    - name: Logearse en Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build y push al repositorio
+      working-directory: ./sensor
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: jesusbc/sensor:kubernetes
