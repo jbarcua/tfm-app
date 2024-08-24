@@ -8,7 +8,7 @@ on:
       - 'tfm-front-end/**'
 
 jobs:
-  build-plots:
+  build-front:
     runs-on: ubuntu-latest
 
     steps:

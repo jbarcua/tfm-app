@@ -10,4 +10,3 @@ COPY . /app
 EXPOSE 4200
 ENTRYPOINT ["/docker-env-js-to-script.sh"]
 CMD ["npm" , "start"]
-#prueba

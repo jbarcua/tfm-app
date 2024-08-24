@@ -1,0 +1,59 @@
+name: Crear S3 Bucket para guardar el estado y desplegar la infraestructura de AWS
+
+on:
+  # Ejecucion manual del Action
+  workflow_dispatch:
+
+  #push:
+    #branches:
+      #- main
+    #paths:
+      #- 'infraestructura/**'
+
+jobs:
+  setup_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del codigo
+      uses: actions/checkout@v2
+
+    - name: Configurar las credenciales de AWS
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Comprobar si existe el S3 Bucket
+      id: check_bucket
+      run: |
+        if aws s3api head-bucket --bucket app-bucket-tfstate 2>/dev/null; then
+          echo "El bucket ya existe."
+          echo "bucket_exists=true" >> $GITHUB_ENV
+        else
+          echo "El bucket no existe."
+          echo "bucket_exists=false" >> $GITHUB_ENV
+        fi
+
+    - name: Crear el S3 Bucket para guardar el estado
+      if: env.bucket_exists == 'false'
+      run: |
+        aws s3api create-bucket --bucket app-bucket-tfstate --region ${{ secrets.AWS_REGION }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.7.1
+
+    - name: terraform init
+      working-directory: ./infraestructura
+      run: terraform init
+
+    - name: terraform validate
+      working-directory: ./infraestructura
+      run: terraform validate
+
+    - name: terraform apply
+      working-directory: ./infraestructura
+      run: terraform apply -auto-approve
