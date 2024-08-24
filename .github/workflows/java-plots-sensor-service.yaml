@@ -32,12 +32,12 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build y push al repositorio
+    - name: Build Docker image servicio Plots
       working-directory: ./plots
-      uses: docker/build-push-action@v5
-      with:
-        push: true
-        tags: jesusbc/plots:kubernetes
+      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/plots:kubernetes .
+
+    - name: Push Docker image servicio Plots
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/plots:kubernetes
 
   build-sensors:
     runs-on: ubuntu-latest
@@ -62,9 +62,9 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build y push al repositorio
-      working-directory: ./sensor
-      uses: docker/build-push-action@v5
-      with:
-        push: true
-        tags: jesusbc/sensor:kubernetes
+    - name: Build Docker image for Sensors
+      working-directory: ./sensors
+      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/sensors:kubernetes .
+
+    - name: Push Docker image for Sensors
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/sensors:kubernetes
