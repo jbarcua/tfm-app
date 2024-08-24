@@ -34,10 +34,10 @@ jobs:
 
     - name: Build Docker image servicio Plots
       working-directory: ./plots
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/plots:kubernetes .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/plots:kubernetes .
 
     - name: Push Docker image servicio Plots
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/plots:kubernetes
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/plots:kubernetes
 
   build-sensor:
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
 
     - name: Build Docker image for Sensor
       working-directory: ./sensor
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/sensor:kubernetes .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/sensor:kubernetes .
 
     - name: Push Docker image for Sensor
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/sensor:kubernetes
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/sensor:kubernetes
