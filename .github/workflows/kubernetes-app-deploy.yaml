@@ -1,0 +1,45 @@
+name: Desplegar aplicacion en Kubernetes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del codigo
+      uses: actions/checkout@v2
+
+    - name: Instalacion de Kubernetes (kubectl)
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Configurar las credenciales de AWS
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Descargar ConfigMap que usara la aplicacion
+      run: aws s3 cp s3://db-services-bucket-tf/app-vars-configmap.yaml ./kubernetes-app/app-vars-configmap.yaml
+
+    - name: Actualizar archivo kubeconfig para acceder al cluster EKS
+      run: aws eks update-kubeconfig --region us-east-1 --name app-cluster-eks
+
+    - name: Desplegar Namespace de la aplicacion
+      run: kubectl apply -f ./kubernetes-app/namespace-app.yaml
+    
+    - name: Desplegar ConfigMap con las variables de la aplicacion
+      run: kubectl apply -f ./kubernetes-app/app-vars-configmap.yaml
+
+    - name: Desplegar servicios Front, Sensor y Plots
+      run: kubectl apply -f ./kubernetes-app/servicios-app/
+
+    - name: Desplegar el Ingress NGINX
+      run: kubectl apply -f ./kubernetes-app/nginx-ingress.yaml
+      
+    - name: Mostrar despliegue del Ingress NGINX junto a los endpoints de la aplicacion
+      run: kubectl describe ingress nginx-ingress -n app

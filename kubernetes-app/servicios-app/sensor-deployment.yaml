@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensor-app
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensor-app
+  template: 
+    metadata:
+      labels: # Etiquetar a los Pods
+        app: sensor-app
+    spec:
+      containers:
+      - name: sensor-app
+        image: jesusbc/sensor:kubernetes
+        ports:
+        - containerPort: 8081
+        env:
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: app-vars-configmap
+                key: POSTGRES_HOST

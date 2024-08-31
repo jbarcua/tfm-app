@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plots-app
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plots-app
+  template: 
+    metadata:
+      labels: # Etiquetar a los Pods
+        app: plots-app
+    spec:
+      containers:
+      - name: plots-app
+        image: jesusbc/plots:kubernetes
+        ports:
+        - containerPort: 8080
+        env:
+          - name: MONGODB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: app-vars-configmap
+                key: MONGODB_HOST
+          - name: APP_SENSOR_SERVICE
+            valueFrom:
+              configMapKeyRef:
+                name: app-vars-configmap
+                key: APP_SENSOR_SERVICE
