@@ -29,4 +29,6 @@ jobs:
 
     - name: terraform destroy
       working-directory: ./infraestructura
-      run: terraform destroy -auto-approve
+      run: |
+        terraform destroy --target helm_release.nginx-externo-tf || true
+        terraform destroy -auto-approve
