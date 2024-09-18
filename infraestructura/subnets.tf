@@ -10,9 +10,8 @@ resource "aws_subnet" "subred-servicios-1a-tf" {
   map_public_ip_on_launch = true
   tags = {
     Name                     = "subred-servicios-1a-tf"
-    "kubernetes.io/role/elb" = "1" # EXTERNO
-    # Tag de EKS - Identificar subnet para desplegar un ALB interno
-    #"kubernetes.io/role/internal-elb" = "1"
+    # Tag de EKS - Identificar subnet para desplegar un ALB externo
+    "kubernetes.io/role/elb" = "1" 
   }
 }
 
@@ -30,7 +29,31 @@ resource "aws_subnet" "subred-front-1b-tf" {
     Name = "subred-front-1b-tf"
     # Tag de EKS - Identificar subnet para desplegar un ALB externo
     "kubernetes.io/role/elb" = "1"
-    # Opcional: tag si se utiliza la subnet por mas de 1 cluster en la cuenta AWS.
-    # "kubernetes.io/cluster/<my-cluster>" = "owned/shared"
+  }
+}
+
+###############################################
+# Subnet privada de bases de datos (us-east-1a)
+###############################################
+
+resource "aws_subnet" "subred-databases-1a-tf" {
+  vpc_id            = aws_vpc.vpc-tf.id
+  cidr_block        = "10.1.30.0/24"
+  availability_zone = "us-east-1a"
+  tags = {
+    Name = "subred-databases-1a-tf"
+  }
+}
+
+###############################################
+# Subnet privada de bases de datos (us-east-1b)
+###############################################
+
+resource "aws_subnet" "subred-databases-1b-tf" {
+  vpc_id            = aws_vpc.vpc-tf.id
+  cidr_block        = "10.1.40.0/24"
+  availability_zone = "us-east-1b"
+  tags = {
+    Name = "subred-databases-1b-tf"
   }
 }

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-vars-configmap
+  namespace: app
+data:
+  # Endpoints para el servicio Front-End
+  APP_PLOTS_SERVICE: localhost #plots-service
+  APP_SENSOR_SERVICE: localhost #sensor-service
+  # Endpoints Bases de Datos para servicios Sensor y Plots
+  POSTGRES_HOST: ${postgres_host}
+  MONGODB_HOST: ${mongo_host}

@@ -1,14 +1,7 @@
 name: Crear S3 Bucket para guardar el estado y desplegar la infraestructura de AWS
 
 on:
-  # Ejecucion manual del Action
   workflow_dispatch:
-
-  #push:
-    #branches:
-      #- main
-    #paths:
-      #- 'infraestructura/**'
 
 jobs:
   setup_and_deploy:
