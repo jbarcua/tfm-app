@@ -5,5 +5,5 @@ tanto tecnológica como la mejora continua del sistema a lo largo del tiempo. Pa
 Documentación: 
 
 <div>
-<a href="https://github.com/JesBarCua/tfm-app/blob/main/Doc_TFM_Jesus_Barquero_Cuadrado.pdf"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/267px-PDF_file_icon.svg.png" alt="PDF_file_icon" width="40" height="50"></a>
+<a href="https://github.com/jbarcua/tfm-app/blob/main/Doc_TFM_Jesus_Barquero_Cuadrado.pdf"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/267px-PDF_file_icon.svg.png" alt="PDF_file_icon" width="40" height="50"></a>
 </div>
